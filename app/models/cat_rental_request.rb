@@ -15,16 +15,26 @@ class CatRentalRequest < ActiveRecord::Base
   :primary_key => :id,
   :class_name => "Cat"
 
-  def overlapping_requests?(request1, request2)
-    (request1.cat_id == request2.cat_id) && (
-      (request1.end_date > request2.start_date) ||
-      (request2.end_date > request1.start_date)
+  def approve!
+    self.status = "APPROVED"
+    self.save
+    self.cat.cat_rental_requests.each do |request|
+      request.deny if overlapping_requests?
+    end
+  end
+
+  def deny
+    self.status = "DENIED"
+    self.save
+  end
+
+  def overlapping_requests
+    self.cat.cat_rental_requests.where("(start_date > ? AND start_date < ?) OR
+    (end_date > ? AND end_date < ?)", self.start_date, self.end_date, self.start_date, self.end_date
     )
   end
 
-  def overlapping_approved_requests?(request1, request2)
-    overlapping_requests?(request1, request2) &&
-      (request1.status == 'APPROVED') &&
-      (request2.status == 'APPROVED')
+  def overlapping_approved_requests?
+
   end
 end
