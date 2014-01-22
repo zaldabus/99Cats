@@ -1,0 +1,11 @@
+<title>99 Cats</title>
+
+<h1>Welcome to 99 Cats! Meow!</h1>
+
+<ul>
+  <% @cats.each do |cat| %>
+    <li><a href="/cats/<%=cat.id%>"><%= cat.name %></a></li>
+  <% end %>
+</ul>
+
+<!-- link to create a new cat -->
