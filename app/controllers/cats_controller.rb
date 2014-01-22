@@ -9,6 +9,8 @@ class CatsController < ApplicationController
   end
 
   def new
+    @cat = Cat.new
+
     render :new
   end
 
@@ -20,6 +22,21 @@ class CatsController < ApplicationController
     else
       render @cat.errors.full_messages, status: :unprocessable_entity
     end
+  end
+
+  def update
+    @cat = Cat.find(params[:id])
+
+    if @cat.update_attributes(params[:cat])
+      redirect_to cats_url
+    else
+      render @cat.errors.full_messages, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @cat = Cat.find(params[:id])
+
   end
 
 end
