@@ -16,6 +16,18 @@
     <%= request.start_date %>
   <p><tr>End Date
     <%= request.end_date %></p>
+    <% if request.status == "PENDING" %>
+
+    <%= button_to "Approve",
+        approve_cat_rental_request_url(request),
+        :method => :put %>
+
+    <%= button_to "Deny",
+        deny_cat_rental_request_url(request),
+        :method => :put %>
+    <% end %>
+
+        <br>
   <% end %>
 
 </p>
