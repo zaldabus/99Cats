@@ -1,6 +1,10 @@
 class CatRentalRequest < ActiveRecord::Base
   attr_accessible :cat_id, :start_date, :end_date, :status
 
+  before_validation(on: :create) do
+    self.status ||= 'PENDING'
+  end
+
   validates :cat_id, :start_date, :end_date, :status, presence: true
   validates :status, :inclusion =>
     { :in => ['PENDING', 'APPROVED', 'DENIED'] }
