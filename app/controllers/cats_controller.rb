@@ -9,7 +9,7 @@ class CatsController < ApplicationController
   end
 
   def new
-    render new_cat_url
+    render :new
   end
 
   def create
