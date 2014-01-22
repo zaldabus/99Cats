@@ -8,4 +8,17 @@
 
 </table>
 
+<table>
+  <h2> Current Rental Requests </h2>
+<p>
+  <% @cat.cat_rental_requests.each do |request| %>
+  <tr>Start Date
+    <%= request.start_date %>
+  <p><tr>End Date
+    <%= request.end_date %></p>
+  <% end %>
+
+</p>
+</table>
+
 <p><a href="/cats/">Back to the cats!</a></p>

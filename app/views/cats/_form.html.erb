@@ -1,4 +1,4 @@
-<h2>Cat form</h2>
+<h2>Cat Form</h2>
 <form action="/cats/<%= @cat.id %>" method="post">
   <input type='hidden' name='_method' value=<%= 'PUT' if @cat.persisted? %> >
 
