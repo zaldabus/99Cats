@@ -10,7 +10,7 @@
 
 <table>
   <h2> Current Rental Requests </h2>
-<p>
+
   <% @cat.cat_rental_requests.each do |request| %>
   <tr>Start Date
     <%= request.start_date %>
@@ -31,10 +31,12 @@
         <br>
   <% end %>
 
-</p>
 </table>
+
 <% if !current_user.nil? && (@cat.user_id == current_user.id) %>
-  <p><a href="/cats/<%= @cat.id %>/edit">Edit my cat!</p>
+  <a href="/cats/<%= @cat.id %>/edit">Edit my cat!</a>
+
+  <br>
 <% end %>
 
-<p><a href="/cats/">Back to the cats!</a></p>
+<a href="/cats/">Back to the cats!</a>

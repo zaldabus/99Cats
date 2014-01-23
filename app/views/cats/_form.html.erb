@@ -47,5 +47,7 @@
   <input name="cat[birth_date]" id="cat_birth_date" type="date" value=<%=
     @cat.birth_date%> ></input>
 
-  <p><input type="submit" value="<%= @cat.persisted? ? 'Edit my cat!' : 'Add my Cat!' %>"></p>
+    <br>
+
+  <input type="submit" value="<%= @cat.persisted? ? 'Edit my cat!' : 'Add my Cat!' %>">
 </form>
