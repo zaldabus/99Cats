@@ -1,37 +1,41 @@
 <table>
 
-<tr><th>Name:<td><%= @cat.name %>
-<tr><th>Age:<td><%= @cat.age %>
-<tr><th>Birth Date:<td><%= @cat.birth_date %>
-<tr><th>Color:<td><%= @cat.color %>
-<tr><th>Sex:<td><%= @cat.sex %>
+<tr align=left><th>Name:<td><%= @cat.name.capitalize %>
+<tr align=left><th>Age:<td><%= @cat.age %>
+<tr align=left><th>Sex:<td><%= @cat.sex %>
+<tr align=left><th>Color:<td><%= @cat.color.capitalize %>
+<tr align=left><th>Birth Date:<td><%= @cat.birth_date %>
 
 </table>
 
 <table>
-  <h2> Current Rental Requests </h2>
+  <h2>Current Rental Requests</h2>
+  <th>Start Date</th><th>End Date</th>
 
   <% @cat.cat_rental_requests.each do |request| %>
-  <tr>Start Date
-    <%= request.start_date %>
-  <p><tr>End Date
-    <%= request.end_date %></p>
+
+    <tr><td><%= request.start_date %>
+
+    <td><%= request.end_date %>
+
     <% unless current_user.nil? %>
       <% if request.status == "PENDING" && @cat.user_id == current_user.id %>
 
-      <%= button_to "Approve",
+      <td><%= button_to "Approve",
           approve_cat_rental_request_url(request),
           :method => :put %>
-
-      <%= button_to "Deny",
+      <td><%= button_to "Deny",
           deny_cat_rental_request_url(request),
           :method => :put %>
+
       <% end %>
     <% end %>
-        <br>
+
   <% end %>
 
 </table>
+
+  <br>
 
 <% if !current_user.nil? && (@cat.user_id == current_user.id) %>
   <a href="/cats/<%= @cat.id %>/edit">Edit my cat!</a>

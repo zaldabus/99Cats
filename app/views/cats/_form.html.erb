@@ -7,25 +7,27 @@
      type="hidden"
      value="<%= form_authenticity_token %>">
 
-  <label for="cat_name">Name</label>
-  <input name="cat[name]" id="cat_name" type="text" value="<%= @cat.name %>">
+  <table bgcolor="c0c0c0">
+
+  <tr align="left"><th><label for="cat_name">Name:</label>
+  <td><input name="cat[name]" id="cat_name" type="text" value="<%= @cat.name %>">
   <br>
 
-  <label for="cat_age">Age</label>
-  <input name="cat[age]" id="cat_age" type="number" value="<%= @cat.age %>">
+  <tr align="left"><th><label for="cat_age">Age:</label>
+  <td><input name="cat[age]" id="cat_age" type="number" value="<%= @cat.age %>">
   <br>
 
-  <label>Sex</label>
-  <div>
-    <input name="cat[sex]" id="cat_sex_m" type="radio" value="M" <%= "checked"          if @cat.sex == "M" %>>
+  <tr align="left"><th><label>Sex:</label>
+
+    <td><input name="cat[sex]" id="cat_sex_m" type="radio" value="M" <%= "checked"          if @cat.sex == "M" %>>
     <label for="cat_sex_m">Male</label>
     <input name="cat[sex]" id="cat_sex_f" type="radio" value="F" <%= "checked"          if @cat.sex == "F" %>>
     <label for="cat_sex_f">Female</label>
-  </div>
-  <br>
 
-  <label for="cat_coat_color">Coat color</label>
-  <select name="cat[color]">
+    <br>
+
+  <tr align="left"><th><label for="cat_coat_color">Coat color:</label>
+  <td><select name="cat[color]">
     <option value="brown"  <%= "selected" if @cat.color == "brown" %>
       >Brown</option>
     <option value="black"  <%= "selected" if @cat.color == "black" %>
@@ -43,11 +45,15 @@
   </select>
   <br>
 
-  <label for="cat_birth_date">Birth date</label>
-  <input name="cat[birth_date]" id="cat_birth_date" type="date" value=<%=
+  <tr align="left"><th><label for="cat_birth_date">Birth date:</label>
+  <td><input name="cat[birth_date]" id="cat_birth_date" type="date" value=<%=
     @cat.birth_date%> ></input>
+
+  </table>
 
     <br>
 
-  <input type="submit" value="<%= @cat.persisted? ? 'Edit my cat!' : 'Add my Cat!' %>">
+  <input type="submit" value="<%= @cat.persisted? ? 'Edit my cat!' : 'Add my cat!' %>">
 </form>
+<br>
+<a href="/cats/">Back to the cats!</a>
