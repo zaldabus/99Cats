@@ -15,12 +15,6 @@ class CatRentalRequestsController < ApplicationController
     @cats = Cat.all
   end
 
-  def update
-    @cat_rental_request = CatRentalRequest.find(params[:id])
-    @cat_rental_request.approve!
-    redirect_to cat_url
-  end
-
   def approve
     @cat_rental_request = CatRentalRequest.find(params[:id])
     @cat_rental_request.approve!
