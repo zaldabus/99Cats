@@ -3,7 +3,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
 
     if @user.save
-      redirect_to cats_url
+      login_user!
     else
       render @user.errors.full_messages, status: :unprocessable_entity
     end
