@@ -5,6 +5,11 @@ class User < ActiveRecord::Base
 
   validates :session_token, :username, presence: true
 
+  has_many :cats,
+           :foreign_key => :user_id,
+           :primary_key => :id,
+           :class_name => "Cat"
+
   def self.find_by_credentials(username, password)
     user = User.find_by_username(username)
 

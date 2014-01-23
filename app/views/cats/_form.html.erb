@@ -2,6 +2,11 @@
 <form action="/cats/<%= @cat.id %>" method="post">
   <input type='hidden' name='_method' value=<%= 'PUT' if @cat.persisted? %> >
 
+  <input
+     name="authenticity_token"
+     type="hidden"
+     value="<%= form_authenticity_token %>">
+
   <label for="cat_name">Name</label>
   <input name="cat[name]" id="cat_name" type="text" value="<%= @cat.name %>">
   <br>
