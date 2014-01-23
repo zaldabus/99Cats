@@ -1,13 +1,14 @@
 class SessionsController < ApplicationController
-  def create
 
+  def create
     @user = User.find_by_credentials(
-    params[:user][:username],
-    params[:user][:password]
+      params[:user][:username],
+      params[:user][:password]
     )
 
     if @user.nil?
-      render json: "WRONG CREDENTIALS!!!"
+      flash[:errors] = "WRONG CREDENTIALS!!!"
+      redirect_to new_session_url
     else
       @user.reset_session_token!
 

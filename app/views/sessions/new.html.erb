@@ -1,3 +1,5 @@
+<%= flash.now[:errors] if flash.now[:errors] %>
+
 <h1>Sign In</h1>
 
 <form action="<%= sessions_url %>" method="post">

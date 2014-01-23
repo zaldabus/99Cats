@@ -10,6 +10,11 @@ class User < ActiveRecord::Base
            :primary_key => :id,
            :class_name => "Cat"
 
+  # has_many :session_tokens,
+  #          :foreign_key => :user_id,
+  #          :primary_key => :id,
+  #          :class_name => "SessionToken"
+
   def self.find_by_credentials(username, password)
     user = User.find_by_username(username)
 
@@ -30,7 +35,12 @@ class User < ActiveRecord::Base
     self.session_token = self.class.generate_session_token
     self.save!
   end
+  #
+  def delete_session
+    self.session_token.delete()
 
+  end
+    #
   def password=(password)
     self.password_digest = BCrypt::Password.create(password)
   end
