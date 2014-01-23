@@ -23,20 +23,12 @@ class User < ActiveRecord::Base
     user.is_password?(password) ? user : nil
   end
 
-  #needs to be changed for Session Model
   def self.generate_session_token
     SecureRandom::urlsafe_base64(16)
   end
 
-  #needs to be changed for Session Model
   def ensure_session_token
     self.session_tokens ||= SessionToken.new(user_id: self.id, token: self.class.generate_session_token)
-  end
-
-  #needs to be changed for Session Model
-  def reset_session_token!
-    self.session_token = self.class.generate_session_token
-    self.save!
   end
 
   def password=(password)
