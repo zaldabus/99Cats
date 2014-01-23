@@ -1,7 +1,7 @@
 Cats99::Application.routes.draw do
   root to: 'cats#index'
 
-  resources :cats
+  resources :cats, except: [:destroy]
 
   resources :cat_rental_requests, only: [:create, :new] do
     member do
