@@ -15,4 +15,15 @@ module SessionsHelper
     redirect_to cats_url
   end
 
+  def require_current_user!
+    if params[:controller] == "cat_rental_requests"
+      @cat = CatRentalRequest.find(params[:id]).cat
+    elsif params[:controller] == "cats"
+      @cat = Cat.find(params[:id])
+    end
+
+    redirect_to cats_url if @cat.user_id != current_user.id
+  end
+
+
 end

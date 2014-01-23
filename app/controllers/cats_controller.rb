@@ -1,5 +1,7 @@
 class CatsController < ApplicationController
 
+  before_filter :require_current_user!, :only => [:edit, :update]
+
   def index
     @cats = Cat.all
   end

@@ -1,6 +1,10 @@
 <h2>Cat Rental Request</h2>
 <form action="/cat_rental_requests" method="post">
 
+  <input
+     name="authenticity_token"
+     type="hidden"
+     value="<%= form_authenticity_token %>">
 
   <label for="available_cats">Available Cats</label>
   <select name="cat_rental_request[cat_id]">

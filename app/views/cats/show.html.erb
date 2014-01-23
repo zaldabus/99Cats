@@ -16,7 +16,7 @@
     <%= request.start_date %>
   <p><tr>End Date
     <%= request.end_date %></p>
-    <% if request.status == "PENDING" %>
+    <% if request.status == "PENDING" && @cat.user_id == current_user.id %>
 
     <%= button_to "Approve",
         approve_cat_rental_request_url(request),

@@ -1,4 +1,5 @@
 class CatRentalRequestsController < ApplicationController
+  before_filter :require_current_user!, :only => [:approve, :deny]
 
   def create
     @cat_rental_request = CatRentalRequest.new(params[:cat_rental_request])
