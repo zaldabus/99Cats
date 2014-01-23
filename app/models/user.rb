@@ -1,19 +1,19 @@
 class User < ActiveRecord::Base
-  attr_accessible :username, :password, :session_token
+  attr_accessible :username, :password
 
   before_validation(:ensure_session_token, on: :create)
 
-  validates :session_token, :username, presence: true
+  validates :username, presence: true
 
   has_many :cats,
            :foreign_key => :user_id,
            :primary_key => :id,
            :class_name => "Cat"
 
-  # has_many :session_tokens,
-  #          :foreign_key => :user_id,
-  #          :primary_key => :id,
-  #          :class_name => "SessionToken"
+  has_many :session_tokens,
+           :foreign_key => :user_id,
+           :primary_key => :id,
+           :class_name => "SessionToken"
 
   def self.find_by_credentials(username, password)
     user = User.find_by_username(username)
@@ -23,24 +23,22 @@ class User < ActiveRecord::Base
     user.is_password?(password) ? user : nil
   end
 
+  #needs to be changed for Session Model
   def self.generate_session_token
     SecureRandom::urlsafe_base64(16)
   end
 
+  #needs to be changed for Session Model
   def ensure_session_token
-    self.session_token ||= self.class.generate_session_token
+    self.session_tokens ||= SessionToken.new(user_id: self.id, token: self.class.generate_session_token)
   end
 
+  #needs to be changed for Session Model
   def reset_session_token!
     self.session_token = self.class.generate_session_token
     self.save!
   end
-  #
-  def delete_session
-    self.session_token.delete()
 
-  end
-    #
   def password=(password)
     self.password_digest = BCrypt::Password.create(password)
   end

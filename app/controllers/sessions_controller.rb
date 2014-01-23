@@ -10,9 +10,10 @@ class SessionsController < ApplicationController
       flash[:errors] = "WRONG CREDENTIALS!!!"
       redirect_to new_session_url
     else
-      @user.reset_session_token!
+      session_token = SecureRandom::urlsafe_base64(16)
 
-      session[:session_token] = @user.session_token
+      session[:session_token] = session_token
+      SessionToken.new(user_id: @user.id, token: session_token).save
 
       redirect_to cats_url
     end
@@ -24,10 +25,10 @@ class SessionsController < ApplicationController
 
   def destroy
     session_token = session[:session_token]
-    @user = User.find_by_session_token(session_token)
+    @user = current_user
 
     session[:session_token] = nil
-    @user.reset_session_token!
+    SessionToken.find_by_token(session_token).destroy
 
     redirect_to cats_url
   end

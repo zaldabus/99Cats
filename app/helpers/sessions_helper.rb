@@ -1,7 +1,11 @@
 module SessionsHelper
 
   def current_user
-    User.find_by_session_token(session[:session_token])
+    if SessionToken.find_by_token(session[:session_token])
+      SessionToken.find_by_token(session[:session_token]).user
+    else
+      nil
+    end
   end
 
   def login_user!
@@ -10,7 +14,10 @@ module SessionsHelper
       params[:user][:password]
       )
 
-    session[:session_token] = @user.session_token
+    session_token = SecureRandom::urlsafe_base64(16)
+
+    session[:session_token] = session_token
+    SessionToken.new(user_id: @user.id, token: session_token).save
 
     redirect_to cats_url
   end
